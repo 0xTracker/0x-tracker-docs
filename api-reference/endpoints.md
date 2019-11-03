@@ -21,11 +21,13 @@ Address of a token to filter fills by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of fills to return per page. _Default value is 20, maximum value is 50._
+The maximum number of fills to return per page.   
+_Default value is 20, maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
-The page of data to return. _Default value is 1._
+The page of data to return.   
+_Default value is 1._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
@@ -76,15 +78,18 @@ Returns a paginated collection of relayers and their associated stats for the sp
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
-The time period for which to return stats. Must be one of: day, week, month, year, all. _Default value is day \(24 hours\)._
+The time period for which to return stats. Must be one of: day, week, month, year, all.   
+_Default value is day \(24 hours\)._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of relayers to return per page. _Default value is 20, maximum value is 50._
+The maximum number of relayers to return per page.   
+_Default value is 20, maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
-The page of data to return. _Default value is 1._
+The page of data to return.   
+_Default value is 1._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
