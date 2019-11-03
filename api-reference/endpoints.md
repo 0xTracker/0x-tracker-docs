@@ -13,9 +13,7 @@ Provides access to various aggregated network stats.
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="period" type="string" %}
-The time period for which to return stats.  
-  
-_**Options:** day, week, month, year, all._  
+The time period for which to return stats._**Options:** day, week, month, year, all._  
 _**Default:** month_
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}

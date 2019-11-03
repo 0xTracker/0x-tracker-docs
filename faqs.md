@@ -1,12 +1,5 @@
 # FAQs
 
-* [What is the difference between "fill volume" and "trade volume"?](faqs.md#what-is-the-difference-between-fill-volume-and-trade-volume)
-* [Where are token prices derived from?](faqs.md#where-are-token-prices-derived-from)
-* [How can I get my 0x relayer listed on 0x Tracker?](faqs.md#how-can-i-get-my-0x-relayer-listed-on-0x-tracker)
-* [How can I get my token listed on 0x Tracker?](faqs.md#how-can-i-get-my-token-listed-on-0x-tracker)
-* [How can I trust the information being reported?](faqs.md#how-can-i-trust-the-information-being-reported)
-* [My question isn't listed here. How can I get in touch?](faqs.md#my-question-isnt-listed-here-how-can-i-get-in-touch)
-
 ## What is the difference between "fill volume" and "trade volume"?
 
 erferferfref
@@ -33,13 +26,11 @@ Token information is automatically sourced from [Ethplorer](https://ethplorer.io
 
 ## How can I trust the information being reported?
 
-All of the code behind 0x Tracker is open source and available to inspect on [GitHub](https://github.com/0xTracker). This helps to provide an end-to-end understanding of how data is collected, processed and served. 
+All of the code behind 0x Tracker is open source and available to inspect on [GitHub](https://github.com/0xTracker). This helps to provide an end-to-end understanding of how data is collected, processed and served.
 
 Unfortunately it is not currently possible to provide proof that this code is actually being used in production. If you want to verify that the data being served on 0xtracker.com is not being tampered with in some way then you're welcome to run the projects yourself. By running the project you can reproduce the data set for comparison against 0x Tracker.
 
 ## My question isn't listed here. How can I get in touch?
 
 For general enquiries the best way to get in touch is [hello@0xtracker.com](mailto:hello@0xtracker.com). Alternatively you can reach out to [@0xTracker](https://twitter.com/0xtracker) on Twitter.
-
-
 
