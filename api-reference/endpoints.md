@@ -6,11 +6,29 @@ Fills
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of fills matching the specified parameters. Results are sorted from most recent to least recent. Please note that this endpoint will only return up to six months worth of transaction data.
+Returns a paginated collection of fills matching the specified parameters. Fills are sorted from most recent to least recent. Please note that this endpoint will only return up to six months worth of transaction data.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="relayer" type="string" required=false %}
+ID of a relayer to filter fills by. Relayer IDs can be found by calling the relayers endpoint.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="token" type="string" required=false %}
+Address of a token to filter fills by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="number" required=false %}
+The maximum number of fills to return per page. _Default value is 20, maximum value is 50._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return. _Default value is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
 
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
@@ -35,6 +53,50 @@ Successful requests will return a paginated list of fills.
     "pageCount": 17221, // The total number of pages
     "total": 344408 // The total number of fills
 }
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% hint style="info" %}
+**Note:** it's currently not possible to filter fills by both relayer and token. Work is being done to make this possible in the future.
+{% endhint %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/relayers" %}
+{% api-method-summary %}
+Relayers
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paginated collection of relayers and their associated stats for the specified time period. Relayers are returned in order of most trade volume to least trade volume.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats. Must be one of: day, week, month, year, all. _Default value is day \(24 hours\)._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="number" required=false %}
+The maximum number of relayers to return per page. _Default value is 20, maximum value is 50._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return. _Default value is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
