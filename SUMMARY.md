@@ -8,5 +8,6 @@
 
 * [Introduction](api-reference/introduction.md)
 * [Rate Limiting](api-reference/rate-limiting.md)
+* [Errors](api-reference/errors.md)
 * [Endpoints](api-reference/endpoints.md)
 

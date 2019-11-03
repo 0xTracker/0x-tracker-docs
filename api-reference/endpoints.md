@@ -1,47 +1,39 @@
 # Endpoints
 
-{% api-method method="get" host="https://api.0xtracker.com" path="/stats/network" %}
+{% api-method method="get" host="https://api.0xtracker.com" path="/fills" %}
 {% api-method-summary %}
-Network Stats
+Fills
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Provides access to various aggregated network stats.
+Returns a paginated collection of fills matching the specified parameters. Results are sorted from most recent to least recent. Please note that this endpoint will only return up to six months worth of transaction data.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="period" type="string" %}
-The time period for which to return stats._**Options:** day, week, month, year, all._  
-_**Default:** month_
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
 
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-Cake successfully retrieved.
+Successful requests will return a paginated list of fills.
 {% endapi-method-response-example-description %}
 
 ```javascript
 {
-    "name": "Cake's name",
-    "recipe": "Cake's recipe name",
-    "cake": "Binary cake"
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-Could not find a cake matching this query.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-    "message": "Ain't no cake like that."
+    "fills": [
+        {
+            "assets": [],
+            "date": "2019-11-03T18:22:06.000Z",
+            "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+            "id": "5dbf1ae6aec0cb0004fef608",
+            "makerAddress": "0x260e92d7b25c9315d068b2c3ca5f234d0cf9e505"
+        },
+        // ...
+    ],
+    "limit": 50, // The maximum number of fills returned
+    "page": 1, // The current page
+    "pageCount": 17221, // The total number of pages
+    "total": 344408 // The total number of fills
 }
 ```
 {% endapi-method-response-example %}

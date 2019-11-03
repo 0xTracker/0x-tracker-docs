@@ -1,21 +1,12 @@
 # Introduction
 
-## Getting Super Powers
+The 0x Tracker public API is provided free of charge for use by other projects in the 0x, Ethereum and wider cryptocurrency ecosystems. All of the data displayed on 0xtracker.com is available through a variety of different endpoints.
 
-Becoming a super hero is a fairly straight forward process:
-
-```text
-$ give me super-powers
-```
-
-{% hint style="info" %}
-Super-powers are granted randomly so please submit an issue if you're not happy with yours.
-{% endhint %}
-
-Once you're strong enough, save the world:
+The API endpoints are exposed via a single read-only base URL:
 
 ```text
-// Ain't no code for that yet, sorry
-echo 'You got to trust me on this, I saved the world'
+https://api.0xtracker.com
 ```
+
+All requests to the API will receive [JSON](https://www.json.org/) encoded responses and conventional HTTP response codes. No API keys or authentication is necessary when making requests.
 

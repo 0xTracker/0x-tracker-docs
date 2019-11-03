@@ -1,21 +1,10 @@
 # Rate Limiting
 
-## Getting Super Powers
+Rate limiting is used by the API to prevent abuse and ensure a reliable experience for all consumers. The current limit is 250 requests to all endpoints in a given five minute time period. The limit is non-accruing and resets every five minutes.
 
-Becoming a super hero is a fairly straight forward process:
-
-```text
-$ give me super-powers
-```
+If you require a more generous limit then please get in touch via [hello@0xtracker.com](mailto:hello@0xtracker.com) to discuss your use case.
 
 {% hint style="info" %}
-Super-powers are granted randomly so please submit an issue if you're not happy with yours.
+Please note that the API is not intended to be used for scraping transaction data. If you require offline access to all transaction data then please run the [0x Event Extractor](https://github.com/0xtracker/0x-event-extractor) and [0x Tracker Worker](https://github.com/0xtracker/0x-tracker-worker) applications yourself.
 {% endhint %}
-
-Once you're strong enough, save the world:
-
-```text
-// Ain't no code for that yet, sorry
-echo 'You got to trust me on this, I saved the world'
-```
 
