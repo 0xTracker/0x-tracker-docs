@@ -1,9 +1,8 @@
 # Table of contents
 
-* [About](README.md)
+* [Introduction](README.md)
 * [FAQs](faqs.md)
 * [Contributing](contributing.md)
-* [Architecture](architecture.md)
 
 ## API Reference
 

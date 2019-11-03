@@ -1,4 +1,4 @@
-# About
+# Introduction
 
 0x Tracker has been monitoring the [0x protocol](https://0x.org/) since 2017. It provides access to trading information, visualizes trends, and aggregates ecosystem news. All of this data is made available through a public website at [0xtracker.com](https://0xtracker.com) and a [public API](api-reference/introduction.md).
 
@@ -12,7 +12,7 @@ Every time an exchange of assets occurs through the 0x protocol an event is emit
 
 ![Hard to understand raw data is transformed into human friendly UIs](.gitbook/assets/event-transformation.jpg)
 
-The 0x Tracker platform itself is comprised of a number of different components to achieve the end result. If you are interested in contributing to the codebase then take a look at the [architecture page](architecture.md) first for a high level overview before diving into the individual [project repositories](https://github.com/0xTracker).
+The 0x Tracker platform itself is comprised of a number of different components to achieve the end result. The repositories for each of these components can be found on the 0x Tracker GitHub [organisation page](https://github.com/0xtracker).
 
 ## Need to get in touch?
 
