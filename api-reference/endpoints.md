@@ -1,5 +1,98 @@
 # Endpoints
 
+{% api-method method="get" host="https://api.0xtracker.com" path="/article-sources" %}
+{% api-method-summary %}
+Article Sources
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of article sources which can be used to filter the articles endpoint.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "name": "0x",
+    "url": "https://0x.org",
+    "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
+    "slug": "0x",
+    "type": "other"
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/articles" %}
+{% api-method-summary %}
+Articles
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paged collection of news articles matching the specified parameters. Articles are sorted from most recent to least recent.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="source" type="string" required=false %}
+ID of an article source you wish to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return.  
+_Default is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "articles": [
+    {
+      "date": "2019-10-30T16:01:21.000Z",
+      "id": "5db9b589ce5d870004529e18",
+      "summary": "Announcing the upcoming 0x v3 vote",
+      "title": "0x: The Community-owned Liquidity API",
+      "url": "https://blog.0xproject.com/0x-the-community-owned-liquidity-api-26da5732447e?source=rss----86e37ca8e375---4",
+      "source": {
+        "name": "0x",
+        "url": "https://0x.org",
+        "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
+        "slug": "0x",
+        "type": "other"
+      }
+    },
+  ],
+  "limit": 12,
+  "page": 1,
+  "pageCount": 40,
+  "total": 473
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/fills/:id" %}
 {% api-method-summary %}
 Fill
@@ -155,10 +248,10 @@ Successful requests will return a paginated list of fills.
         },
         // ...
     ],
-    "limit": 50, // The maximum number of fills returned
-    "page": 1, // The current page
-    "pageCount": 17221, // The total number of pages
-    "total": 344408 // The total number of fills
+    "limit": 50,
+    "page": 1,
+    "pageCount": 17221,
+    "total": 344408
 }
 ```
 {% endapi-method-response-example %}
@@ -176,7 +269,7 @@ Relayers
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of relayers and their associated stats for the specified time period. Relayers are returned in order of most trade volume to least trade volume.
+Returns a paginated collection of active relayers and their associated stats for the specified time period. Relayers are returned in order of most trade volume to least trade volume.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -281,7 +374,7 @@ Tokens
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of tokens and their associated stats for the specified time period. Tokens are returned in order of most fill volume to least fill volume.
+Returns a paginated collection of traded tokens and their associated stats for the specified time period. Tokens are returned in order of most fill volume to least fill volume.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -342,6 +435,77 @@ Returned when all parameters are valid.
   "pageCount": 3,
   "limit": 20,
   "total": 45
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/traders" %}
+{% api-method-summary %}
+Traders
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paginated collection of active traders and their associated stats for the specified time period. Traders are returned in order of most fill volume to least fill volume.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="excludeRelayers" type="boolean" required=false %}
+Whether to exclude relayer taker addresses from the results.  
+_Default is true._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="number" required=false %}
+The maximum number of traders to return per page.  
+_Default value is 20. Maximum value is 50._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return.  
+_Default value is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "page": 1,
+  "pageCount": 6,
+  "limit": 20,
+  "total": 119,
+  "traders": [
+    {
+      "address": "0x41f8d14c9475444f30a80431c68cf24dc9a8369a",
+      "stats": {
+        "fillCount": {
+          "maker": 0,
+          "taker": 259,
+          "total": 259
+        },
+        "fillVolume": {
+          "maker": 0,
+          "taker": 496613.5857697289,
+          "total": 496613.5857697289
+        }
+      }
+    },
+    // ...
+  ]
 }
 ```
 {% endapi-method-response-example %}
