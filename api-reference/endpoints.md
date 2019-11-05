@@ -1,5 +1,7 @@
 # Endpoints
 
+## Entities
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/article-sources" %}
 {% api-method-summary %}
 Article Sources
@@ -512,4 +514,234 @@ Returned when all parameters are valid.
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
+
+## Metrics
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/network" %}
+{% api-method-summary %}
+Network Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics for the specified time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="relayer" type="string" required=false %}
+ID of a relayer to filter the metrics by. If not supplied then metrics will reflect activity across the entire 0x network.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2019-10-05T00:00:00.000Z",
+    "fees": {
+      "USD": 0,
+      "ZRX": "0"
+    },
+    "fills": 1383,
+    "volume": 929465.5342802514
+  },
+  {
+    "date": "2019-10-06T00:00:00.000Z",
+    "fees": {
+      "USD": 0,
+      "ZRX": "0"
+    },
+    "fills": 1624,
+    "volume": 595794.5615575106
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/protocol" %}
+{% api-method-summary %}
+Protocol Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics grouped by protocol version for the specified time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2018-11-05T00:00:00.000Z",
+    "fillCount": 722,
+    "fillVolume": 1529125.5381358322,
+    "protocolVersion": 2
+  },
+  {
+    "date": "2018-11-05T00:00:00.000Z",
+    "fillCount": 2587,
+    "fillVolume": 2219899.382380833,
+    "protocolVersion": 1
+  },
+  {
+    "date": "2018-11-06T00:00:00.000Z",
+    "fillCount": 882,
+    "fillVolume": 639414.4409522158,
+    "protocolVersion": 2
+  },
+  {
+    "date": "2018-11-06T00:00:00.000Z",
+    "fillCount": 2477,
+    "fillVolume": 935976.9032184142,
+    "protocolVersion": 1
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/token" %}
+{% api-method-summary %}
+Token Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics for the specified token and time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="token" type="string" required=true %}
+Address of the token to fetch metrics for.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2019-10-05T00:00:00.000Z",
+    "fillCount": 241,
+    "volume": {
+      "USD": 495067.7333900565,
+      "USDT": "492473.991404"
+    }
+  },
+  {
+    "date": "2019-10-06T00:00:00.000Z",
+    "fillCount": 192,
+    "volume": {
+      "USD": 263534.0645080984,
+      "USDT": "262563.466067"
+    }
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=404 %}
+{% api-method-response-example-description %}
+Returned when the specified token could not be found.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_URL",
+      "status": 404,
+      "title": "The requested URL is invalid."
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/trader" %}
+{% api-method-summary %}
+Trader Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics for the specified trader and time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="address" type="string" required=true %}
+Address of the trader to fetch metrics for.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+## Stats
 
