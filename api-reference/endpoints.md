@@ -297,11 +297,32 @@ _Default value is 1._
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-
+Returned when all parameters are valid.
 {% endapi-method-response-example-description %}
 
-```
-
+```javascript
+{
+  "relayers": [
+    {
+      "imageUrl": "https://0xtracker.com/assets/logos/tokenlon.png",
+      "name": "Tokenlon",
+      "slug": "tokenlon",
+      "stats": {
+        "fillCount": 305,
+        "fillVolume": 713586.326758335,
+        "tradeCount": 305,
+        "tradeVolume": 713586.326758335,
+        "tradeVolumeShare": 51.413071251667034
+      },
+      "url": "https://tokenlon.token.im/tokenlon"
+    },
+    // ...
+  ],
+  "page": 1,
+  "pageCount": 1,
+  "limit": 20,
+  "total": 10
+}
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -351,7 +372,7 @@ Returned when a token is found which matches the specified address.
 
 {% api-method-response-example httpCode=404 %}
 {% api-method-response-example-description %}
-Returned when no tok can be found with the specified address.
+Returned when no token can be found with the specified address.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -732,11 +753,39 @@ _Default value is month._
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-
+Returned when all parameters are valid.
 {% endapi-method-response-example-description %}
 
-```
-
+```javascript
+[
+  {
+    "date": "2019-10-05T00:00:00.000Z",
+    "fillCount": {
+      "maker": 16,
+      "taker": 0,
+      "total": 16
+    },
+    "fillVolume": {
+      "maker": 72991.34822187197,
+      "taker": 0,
+      "total": 72991.34822187197
+    }
+  },
+  {
+    "date": "2019-10-06T00:00:00.000Z",
+    "fillCount": {
+      "maker": 10,
+      "taker": 0,
+      "total": 10
+    },
+    "fillVolume": {
+      "maker": 45067.52037545083,
+      "taker": 0,
+      "total": 45067.52037545083
+    }
+  },
+  // ...
+]
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -744,4 +793,83 @@ _Default value is month._
 {% endapi-method %}
 
 ## Stats
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/stats/network" %}
+{% api-method-summary %}
+Network Stats
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns network stats for the specified time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return stats. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters were valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "fees": {
+    "USD": 0,
+    "ZRX": "0"
+  },
+  "fillCount": 1215,
+  "fillVolume": 1424278.9861453106,
+  "tradeCount": 887,
+  "tradeVolume": 1408589.3708279347
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/stats/trader" %}
+{% api-method-summary %}
+Trader Stats
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns trader stats for the specified time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="period" type="string" required=false %}
+Time period to return stats for. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "makerCount": 68,
+  "takerCount": 53,
+  "traderCount": 116
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
 
