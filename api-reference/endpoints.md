@@ -26,8 +26,7 @@ Returns a collection of article sources which can be used to filter the articles
     "name": "0x",
     "url": "https://0x.org",
     "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
-    "slug": "0x",
-    "type": "other"
+    "slug": "0x"
   },
   // ...
 ]
@@ -79,8 +78,7 @@ Returned when all parameters are valid.
         "name": "0x",
         "url": "https://0x.org",
         "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
-        "slug": "0x",
-        "type": "other"
+        "slug": "0x"
       }
     },
   ],
@@ -304,6 +302,7 @@ Returned when all parameters are valid.
 {
   "relayers": [
     {
+      "id": "tokenlon",
       "imageUrl": "https://0xtracker.com/assets/logos/tokenlon.png",
       "name": "Tokenlon",
       "slug": "tokenlon",
@@ -357,15 +356,16 @@ Returned when a token is found which matches the specified address.
 {
   "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
   "imageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+  "lastTrade": {
+    "id": "5dc06f57ab099b00048e0737",
+    "date": "2019-11-04T18:34:26.000Z"
+  },
   "name": "Wrapped Ether",
-  "symbol": "WETH",
   "price": {
-    "lastTrade": {
-      "id": "5dc06f57ab099b00048e0737",
-      "date": "2019-11-04T18:34:26.000Z"
-    },
-    "lastPrice": 186.72
-  }
+    "last": 186.72
+  },
+  "symbol": "WETH",
+  "type": "erc-20"
 }
 ```
 {% endapi-method-response-example %}
@@ -403,6 +403,10 @@ Returns a paginated collection of traded tokens and their associated stats for t
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="type" type="string" required=false %}
+The type of tokens to return. Must be one of: erc-20, erc-721.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
 The time period for which to return stats. Must be one of: day, week, month, year, all.  
 _Default value is day._
@@ -431,7 +435,6 @@ Returned when all parameters are valid.
   "tokens": [
     {
       "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "decimals": 18,
       "imageUrl": "https://raw.githubusercontent.com/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
       "lastTrade": {
         "id": "5dc06f57ab099b00048e0737",
@@ -477,6 +480,10 @@ Returns a paginated collection of active traders and their associated stats for 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="type" type="string" required=false %}
+The type of traders to return. Must be one of: maker, taker.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="excludeRelayers" type="boolean" required=false %}
 Whether to exclude relayer taker addresses from the results.  
 _Default is true._
@@ -550,10 +557,6 @@ Returns a collection of metrics for the specified time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
-{% api-method-parameter name="relayer" type="string" required=false %}
-ID of a relayer to filter the metrics by. If not supplied then metrics will reflect activity across the entire 0x network.
-{% endapi-method-parameter %}
-
 {% api-method-parameter name="period" type="string" required=false %}
 Time period for which to return metrics. Must be one of: day, week, month, year, all.  
 _Default value is month._
@@ -575,8 +578,8 @@ Returned when all parameters are valid.
       "USD": 0,
       "ZRX": "0"
     },
-    "fills": 1383,
-    "volume": 929465.5342802514
+    "fillCount": 1383,
+    "fillVolume": 929465.5342802514
   },
   {
     "date": "2019-10-06T00:00:00.000Z",
@@ -584,67 +587,8 @@ Returned when all parameters are valid.
       "USD": 0,
       "ZRX": "0"
     },
-    "fills": 1624,
-    "volume": 595794.5615575106
-  },
-  // ...
-]
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/protocol" %}
-{% api-method-summary %}
-Protocol Metrics
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a collection of metrics grouped by protocol version for the specified time period.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="period" type="string" required=false %}
-Time period for which to return metrics. Must be one of: day, week, month, year, all.  
-_Default value is month._
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when all parameters are valid.
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "date": "2018-11-05T00:00:00.000Z",
-    "fillCount": 722,
-    "fillVolume": 1529125.5381358322,
-    "protocolVersion": 2
-  },
-  {
-    "date": "2018-11-05T00:00:00.000Z",
-    "fillCount": 2587,
-    "fillVolume": 2219899.382380833,
-    "protocolVersion": 1
-  },
-  {
-    "date": "2018-11-06T00:00:00.000Z",
-    "fillCount": 882,
-    "fillVolume": 639414.4409522158,
-    "protocolVersion": 2
-  },
-  {
-    "date": "2018-11-06T00:00:00.000Z",
-    "fillCount": 2477,
-    "fillVolume": 935976.9032184142,
-    "protocolVersion": 1
+    "fillCount": 1624,
+    "fillVolume": 595794.5615575106
   },
   // ...
 ]
@@ -688,17 +632,17 @@ Returned when all parameters are valid.
   {
     "date": "2019-10-05T00:00:00.000Z",
     "fillCount": 241,
-    "volume": {
-      "USD": 495067.7333900565,
-      "USDT": "492473.991404"
+    "fillVolume": {
+      "token": "492473.991404",
+      "USD": 495067.7333900565
     }
   },
   {
     "date": "2019-10-06T00:00:00.000Z",
     "fillCount": 192,
     "volume": {
-      "USD": 263534.0645080984,
-      "USDT": "262563.466067"
+      "token": "262563.466067",
+      "USD": 263534.0645080984
     }
   },
   // ...
