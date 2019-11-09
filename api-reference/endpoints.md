@@ -263,6 +263,38 @@ Successful requests will return a paginated list of fills.
 **Note:** it's currently not possible to filter fills by both relayer and token. Work is being done to make this possible in the future.
 {% endhint %}
 
+{% api-method method="get" host="https://api.0xtracker.com" path="/relayers/:slug" %}
+{% api-method-summary %}
+Relayer
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns details of the specified relayer.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="slug" type="string" required=false %}
+Slug of the relayer to fetch.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```
+
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/relayers" %}
 {% api-method-summary %}
 Relayers
@@ -341,7 +373,7 @@ Returns the full details of a single token.
 {% api-method-request %}
 {% api-method-path-parameters %}
 {% api-method-parameter name="address" type="string" required=true %}
-Address of the token you wish to fetch.
+Address of the token to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 {% endapi-method-request %}
