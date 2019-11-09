@@ -49,7 +49,7 @@ Returns a paged collection of news articles matching the specified parameters. A
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="source" type="string" required=false %}
-ID of an article source you wish to filter by.
+Slug of an article source to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
@@ -106,7 +106,7 @@ Returns the full details of a single fill.
 {% api-method-request %}
 {% api-method-path-parameters %}
 {% api-method-parameter name="id" type="string" required=true %}
-ID of the fill you wish to fetch.
+ID of the fill to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 {% endapi-method-request %}
@@ -204,23 +204,23 @@ Fills
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of fills matching the specified parameters. Fills are sorted from most recent to least recent. Please note that this endpoint will only return up to six months worth of transaction data.
+Returns a paginated collection of fills matching the specified parameters. Fills are sorted from most recent to least recent.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="relayer" type="string" required=false %}
-ID of a relayer to filter fills by. Relayer IDs can be found by calling the relayers endpoint.
+ID of a relayer to filter by. Relayer IDs can be found by calling the relayers endpoint.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="token" type="string" required=false %}
-Address of a token to filter fills by.
+Address of a token to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
 The maximum number of fills to return per page.   
-_Default value is 20, maximum value is 50._
+_Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
@@ -233,7 +233,7 @@ _Default value is 1._
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-Successful requests will return a paginated list of fills.
+Returned when all parameters are valid.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -255,12 +255,35 @@ Successful requests will return a paginated list of fills.
 }
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: relayer",
+      "reason": "No relayer exists with an ID of \"fubar\"",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
 
 {% hint style="info" %}
-**Note:** it's currently not possible to filter fills by both relayer and token. Work is being done to make this possible in the future.
+**Notes:** 
+
+This endpoint only returns up to six months of transaction data.
+
+It's currently not possible to filter fills by both relayer and token. Work is being done to make this possible in the future.
 {% endhint %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/relayers/:slug" %}
@@ -269,7 +292,7 @@ Relayer
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns details of the specified relayer.
+Returns the details of a single relayer.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -284,11 +307,35 @@ Slug of the relayer to fetch.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-
+Returned when a relayer is found matching the specified slug.
 {% endapi-method-response-example-description %}
 
+```javascript
+{
+  "id": "radarRelay",
+  "imageUrl": "https://0xtracker.com/assets/logos/radar-relay.png",
+  "name": "Radar Relay",
+  "slug": "radar-relay",
+  "url": "https://radarrelay.com"
+}
 ```
+{% endapi-method-response-example %}
 
+{% api-method-response-example httpCode=404 %}
+{% api-method-response-example-description %}
+Returned when no relayer can be found matching the specified slug.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_URL",
+      "message": "The requested URL is invalid.",
+      "status": 404
+    }
+  ]
+}
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -314,7 +361,7 @@ _Default value is day._
 
 {% api-method-parameter name="limit" type="number" required=false %}
 The maximum number of relayers to return per page.   
-_Default value is 20, maximum value is 50._
+_Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
@@ -356,6 +403,25 @@ Returned when all parameters are valid.
 }
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid statsPeriod parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
@@ -381,7 +447,7 @@ Address of the token to fetch.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-Returned when a token is found which matches the specified address.
+Returned when a token is found matching the specified address.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -404,7 +470,7 @@ Returned when a token is found which matches the specified address.
 
 {% api-method-response-example httpCode=404 %}
 {% api-method-response-example-description %}
-Returned when no token can be found with the specified address.
+Returned when no token can be found matching the specified address.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -496,6 +562,25 @@ Returned when all parameters are valid.
 }
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid statsPeriod parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
@@ -571,6 +656,25 @@ Returned when all parameters are valid.
 }
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid statsPeriod parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
@@ -583,7 +687,7 @@ Network Metrics
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a collection of metrics for the specified time period.
+Returns a collection of network metrics for the specified time period.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -624,6 +728,25 @@ Returned when all parameters are valid.
   },
   // ...
 ]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid period parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
 ```
 {% endapi-method-response-example %}
 {% endapi-method-response %}
@@ -762,18 +885,19 @@ Returned when all parameters are valid.
 ```
 {% endapi-method-response-example %}
 
-{% api-method-response-example httpCode=404 %}
+{% api-method-response-example httpCode=400 %}
 {% api-method-response-example-description %}
-Returned when the specified token could not be found.
+Returned when a parameter is invalid.
 {% endapi-method-response-example-description %}
 
 ```javascript
 {
   "errors": [
     {
-      "code": "INVALID_URL",
-      "status": 404,
-      "title": "The requested URL is invalid."
+      "code": "MISSING_PARAMETER",
+      "message": "Missing query parameter: token",
+      "reason": "Parameter must be provided",
+      "status": 400
     }
   ]
 }
@@ -844,6 +968,25 @@ Returned when all parameters are valid.
 ]
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "MISSING_PARAMETER",
+      "message": "Missing query parameter: address",
+      "reason": "Parameter must be provided",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
@@ -862,7 +1005,7 @@ Returns network stats for the specified time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
-{% api-method-parameter name="" type="string" required=false %}
+{% api-method-parameter name="period" type="string" required=false %}
 Time period for which to return stats. Must be one of: day, week, month, year, all.  
 _Default value is day._
 {% endapi-method-parameter %}
@@ -888,6 +1031,25 @@ Returned when all parameters were valid.
 }
 ```
 {% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid period parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
@@ -905,7 +1067,7 @@ Returns trader stats for the specified time period.
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="period" type="string" required=false %}
-Time to period to return stats for. Must be one of: day, week, month, year, all.  
+Time period to return stats for. Must be one of: day, week, month, year, all.  
 _Default value is day._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
@@ -922,6 +1084,25 @@ Returned when all parameters are valid.
   "makerCount": 68,
   "takerCount": 53,
   "traderCount": 116
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid period parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
 }
 ```
 {% endapi-method-response-example %}
