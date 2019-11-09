@@ -598,6 +598,86 @@ Returned when all parameters are valid.
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/relayer" %}
+{% api-method-summary %}
+Relayer Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics for the specified relayer and time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="relayer" type="string" required=true %}
+Id of the relayer to fetch metrics for.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2019-10-09T00:00:00.000Z",
+    "fees": {
+      "USD": 0,
+      "ZRX": "0"
+    },
+    "fillCount": 505,
+    "fillVolume": 804818.3748855987,
+    "tradeCount": 505,
+    "tradeVolume": 804818.3748855987
+  },
+  {
+    "date": "2019-10-10T00:00:00.000Z",
+    "fees": {
+      "USD": 0,
+      "ZRX": "0"
+    },
+    "fillCount": 613,
+    "fillVolume": 786533.7512397981,
+    "tradeCount": 613,
+    "tradeVolume": 786533.7512397981
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when an invalid query parameter is provided.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: relayer",
+      "reason": "No relayer exists with an ID of \"fubar\"",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/metrics/token" %}
 {% api-method-summary %}
 Token Metrics
@@ -749,12 +829,12 @@ Returns network stats for the specified time period.
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="period" type="string" required=false %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="" type="string" required=false %}
 Time period for which to return stats. Must be one of: day, week, month, year, all.  
 _Default value is day._
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -791,12 +871,12 @@ Returns trader stats for the specified time period.
 
 {% api-method-spec %}
 {% api-method-request %}
-{% api-method-path-parameters %}
+{% api-method-query-parameters %}
 {% api-method-parameter name="period" type="string" required=false %}
-Time period to return stats for. Must be one of: day, week, month, year, all.  
+Time to period to return stats for. Must be one of: day, week, month, year, all.  
 _Default value is day._
 {% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
+{% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
