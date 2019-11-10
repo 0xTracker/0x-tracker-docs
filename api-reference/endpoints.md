@@ -389,8 +389,7 @@ Returned when all parameters are valid.
         "fillCount": 305,
         "fillVolume": 713586.326758335,
         "tradeCount": 305,
-        "tradeVolume": 713586.326758335,
-        "tradeVolumeShare": 51.413071251667034
+        "tradeVolume": 713586.326758335
       },
       "url": "https://tokenlon.token.im/tokenlon"
     },
@@ -548,8 +547,7 @@ Returned when all parameters are valid.
         "fillVolume": {
           "token": "4214.4828876902467",
           "USD": 776534.3341971342
-        },
-        "fillVolumeShare": 40.549783926118636
+        }
       },
       "type": "erc-20"
     },
