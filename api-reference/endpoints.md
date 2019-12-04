@@ -210,6 +210,10 @@ Returns a paginated collection of fills matching the specified parameters. Fills
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="protocolVersion" type="number" required=false %}
+Protocol version to filter by.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="relayer" type="string" required=false %}
 ID of a relayer to filter by. Relayer IDs can be found by calling the relayers endpoint.
 {% endapi-method-parameter %}
@@ -283,8 +287,86 @@ Returned when a parameter is invalid.
 
 This endpoint only returns up to six months of transaction data.
 
-It's currently not possible to filter fills by both relayer and token. Work is being done to make this possible in the future.
+It's currently not possible to combine protocolVersion, relayer, and token parameters. Work is being done to make this possible in the future.
 {% endhint %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/protocols" %}
+{% api-method-summary %}
+Protocols
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paginated collection of protocols matching the specified parameters.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="sortBy" type="string" required=false %}
+The field by which to sort protocols. Must be one of: fillCount, fillVolume.  
+_Default value is fillVolume._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "protocols": [
+    {
+      "stats": {
+        "fillCount": 5385,
+        "fillVolume": 1502594.5911382628
+      },
+      "version": 2
+    },
+    {
+      "stats": {
+        "fillCount": 2,
+        "fillVolume": 20.2450049676
+      },
+      "version": 3
+    }
+  ],
+  "page": 1,
+  "pageCount": 1,
+  "limit": 20,
+  "total": 2
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: sortBy",
+      "reason": "Must be one of: fillCount, fillVolume",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/relayers/:slug" %}
 {% api-method-summary %}
@@ -713,7 +795,11 @@ Returned when all parameters are valid.
       "ZRX": "0"
     },
     "fillCount": 1383,
-    "fillVolume": 929465.5342802514
+    "fillVolume": 929465.5342802514,
+    "protocolFees": {
+      "ETH": "152.8",
+      "USD": 22920
+    }
   },
   {
     "date": "2019-10-06T00:00:00.000Z",
@@ -722,7 +808,11 @@ Returned when all parameters are valid.
       "ZRX": "0"
     },
     "fillCount": 1624,
-    "fillVolume": 595794.5615575106
+    "fillVolume": 595794.5615575106,
+    "protocolFees": {
+      "ETH": "167",
+      "USD": 25050
+    }
   },
   // ...
 ]
@@ -1024,6 +1114,10 @@ Returned when all parameters were valid.
   },
   "fillCount": 1215,
   "fillVolume": 1424278.9861453106,
+  "protocolFees": {
+    "ETH": "221.8",
+    "USD": 33270
+  },
   "tradeCount": 887,
   "tradeVolume": 1408589.3708279347
 }
