@@ -285,9 +285,7 @@ Returned when a parameter is invalid.
 {% hint style="info" %}
 **Notes:** 
 
-This endpoint only returns up to six months of transaction data.
-
-It's currently not possible to combine protocolVersion, relayer, and token parameters. Work is being done to make this possible in the future.
+This endpoint only provides transaction data for the last six months. Please [get in touch](https://docs.0xtracker.com/#need-to-get-in-touch) to discuss paid options if you require a full transaction history.
 {% endhint %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/protocols" %}
