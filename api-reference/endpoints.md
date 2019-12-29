@@ -210,6 +210,14 @@ Returns a paginated collection of fills matching the specified parameters. Fills
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="valueTo" type="number" required=false %}
+Minimum fill value \(in USD\) to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="valueFrom" type="number" required=false %}
+Minimum fill value \(in USD\) to filter by.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="protocolVersion" type="number" required=false %}
 Protocol version to filter by.
 {% endapi-method-parameter %}
