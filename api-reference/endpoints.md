@@ -331,15 +331,19 @@ Returned when all parameters are valid.
   "protocols": [
     {
       "stats": {
-        "fillCount": 5385,
-        "fillVolume": 1502594.5911382628
+        "fillCount": 2026,
+        "fillVolume": 1728911.7356433223,
+        "tradeCount": 1559,
+        "tradeVolume": 1285629.9583338788
       },
       "version": 2
     },
     {
       "stats": {
-        "fillCount": 2,
-        "fillVolume": 20.2450049676
+        "fillCount": 374,
+        "fillVolume": 585201.4918576538,
+        "tradeCount": 357,
+        "tradeVolume": 540775.9960855007
       },
       "version": 3
     }
@@ -796,29 +800,25 @@ Returned when all parameters are valid.
 [
   {
     "date": "2019-10-05T00:00:00.000Z",
-    "fees": {
-      "USD": 0,
-      "ZRX": "0"
-    },
     "fillCount": 1383,
     "fillVolume": 929465.5342802514,
     "protocolFees": {
       "ETH": "152.8",
       "USD": 22920
-    }
+    },
+    "tradeCount": 999,
+    "tradeVolume": 876987,
   },
   {
     "date": "2019-10-06T00:00:00.000Z",
-    "fees": {
-      "USD": 0,
-      "ZRX": "0"
-    },
     "fillCount": 1624,
     "fillVolume": 595794.5615575106,
     "protocolFees": {
       "ETH": "167",
       "USD": 25050
-    }
+    },
+    "tradeCount": 1473,
+    "tradeVolume": 512018.89,
   },
   // ...
 ]
@@ -880,10 +880,6 @@ Returned when all parameters are valid.
 [
   {
     "date": "2019-10-09T00:00:00.000Z",
-    "fees": {
-      "USD": 0,
-      "ZRX": "0"
-    },
     "fillCount": 505,
     "fillVolume": 804818.3748855987,
     "tradeCount": 505,
@@ -891,10 +887,6 @@ Returned when all parameters are valid.
   },
   {
     "date": "2019-10-10T00:00:00.000Z",
-    "fees": {
-      "USD": 0,
-      "ZRX": "0"
-    },
     "fillCount": 613,
     "fillVolume": 786533.7512397981,
     "tradeCount": 613,
@@ -969,7 +961,7 @@ Returned when all parameters are valid.
   {
     "date": "2019-10-06T00:00:00.000Z",
     "fillCount": 192,
-    "volume": {
+    "fillVolume": {
       "token": "262563.466067",
       "USD": 263534.0645080984
     }
@@ -1043,6 +1035,16 @@ Returned when all parameters are valid.
       "maker": 72991.34822187197,
       "taker": 0,
       "total": 72991.34822187197
+    },
+    "tradeCount": {
+      "maker": 8,
+      "taker": 0,
+      "total": 8
+    },
+    "tradeVolume": {
+      "maker": 36012.78,
+      "taker": 0,
+      "total": 36012.78
     }
   },
   {
@@ -1056,6 +1058,16 @@ Returned when all parameters are valid.
       "maker": 45067.52037545083,
       "taker": 0,
       "total": 45067.52037545083
+    },
+    "tradeCount": {
+      "maker": 5,
+      "taker": 0,
+      "total": 5
+    },
+    "tradeVolume": {
+      "maker": 23042.76,
+      "taker": 0,
+      "total": 23042.76
     }
   },
   // ...
@@ -1114,10 +1126,6 @@ Returned when all parameters were valid.
 
 ```javascript
 {
-  "fees": {
-    "USD": 0,
-    "ZRX": "0"
-  },
   "fillCount": 1215,
   "fillVolume": 1424278.9861453106,
   "protocolFees": {
