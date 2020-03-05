@@ -931,6 +931,102 @@ Returned when a parameter is invalid.
 {% endapi-method-spec %}
 {% endapi-method %}
 
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/protocol" %}
+{% api-method-summary %}
+Protocol Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of protocol metrics for the specified time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2020-02-05T00:00:00.000Z",
+    "stats": [
+      {
+        "fillCount": 1750,
+        "fillVolume": 1096872.58949153,
+        "protocolVersion": 2,
+        "tradeCount": 1229,
+        "tradeVolume": 977798.7221048203
+      },
+      {
+        "fillCount": 513,
+        "fillVolume": 762915.6891538525,
+        "protocolVersion": 3,
+        "tradeCount": 453,
+        "tradeVolume": 677829.7757666862
+      }
+    ]
+  },
+  {
+    "date": "2020-02-06T00:00:00.000Z",
+    "stats": [
+      {
+        "fillCount": 1419,
+        "fillVolume": 1273827.704905562,
+        "protocolVersion": 2,
+        "tradeCount": 1054,
+        "tradeVolume": 1151976.1669566333
+      },
+      {
+        "fillCount": 579,
+        "fillVolume": 861379.0750347817,
+        "protocolVersion": 3,
+        "tradeCount": 526,
+        "tradeVolume": 772009.9522138488
+      }
+    ]
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid period parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/metrics/relayer" %}
 {% api-method-summary %}
 Relayer Metrics
