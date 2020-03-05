@@ -771,6 +771,86 @@ Returned when a parameter is invalid.
 
 ## Metrics
 
+{% hint style="info" %}
+All metrics endpoints \(with the exception of token\) accept a granularity parameter whose valid values vary based on the specified time period. The valid values for each time period are as follows:
+
+* **day** - hour
+* **week** - hour, day
+* **month** - day
+* **year** - day, week, month
+* **all** - week, month
+{% endhint %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/active-trader" %}
+{% api-method-summary %}
+Active Trader Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of active trader metrics for the specified time period. 
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Must be one of: day, week, month, year, all.  
+_Default value is month._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2020-02-05T00:00:00.000Z",
+    "makerCount": 157,
+    "takerCount": 61,
+    "traderCount": 210
+  },
+  {
+    "date": "2020-02-06T00:00:00.000Z",
+    "makerCount": 149,
+    "takerCount": 70,
+    "traderCount": 209
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid period parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
 {% api-method method="get" host="https://api.0xtracker.com" path="/metrics/network" %}
 {% api-method-summary %}
 Network Metrics
@@ -783,6 +863,10 @@ Returns a collection of network metrics for the specified time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="period" type="string" required=false %}
 Time period for which to return metrics. Must be one of: day, week, month, year, all.  
 _Default value is month._
@@ -859,6 +943,10 @@ Returns a collection of metrics for the specified relayer and time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="relayer" type="string" required=true %}
 Id of the relayer to fetch metrics for.
 {% endapi-method-parameter %}
@@ -1005,6 +1093,10 @@ Returns a collection of metrics for the specified trader and time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="address" type="string" required=true %}
 Address of the trader to fetch metrics for.
 {% endapi-method-parameter %}
