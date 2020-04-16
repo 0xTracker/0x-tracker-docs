@@ -533,6 +533,13 @@ Returns the full details of a single token.
 Address of the token to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
+
+{% api-method-query-parameters %}
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats and price. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -544,16 +551,37 @@ Returned when a token is found matching the specified address.
 ```javascript
 {
   "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  "circulatingSupply": null,
   "imageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
   "lastTrade": {
-    "id": "5dc06f57ab099b00048e0737",
-    "date": "2019-11-04T18:34:26.000Z"
+    "date": "2020-04-16T19:01:36.000Z",
+    "id": "5e98ac33f3edba0548d57499"
   },
+  "marketCap": 401979735.10782796,
   "name": "Wrapped Ether",
   "price": {
-    "last": 186.72
+    "change": 8.77204150486982,
+    "close": 170.87,
+    "high": 174.47853088378906,
+    "last": 170.87,
+    "low": 145.86898803710938,
+    "open": 157.09
   },
+  "stats": {
+    "fillCount": 3403,
+    "fillVolume": {
+      "token": 29343.563185668743,
+      "USD": 4839232.989858636
+    },
+    "tradeCount": 3064,
+    "tradeVolume": {
+      "token": 25417.591251252252,
+      "USD": 4189388.872657468
+    }
+  },
+  "statsPeriod": "day",
   "symbol": "WETH",
+  "totalSupply": 2352547.1709944867,
   "type": "erc-20"
 }
 ```
@@ -597,7 +625,7 @@ The type of tokens to return. Must be one of: erc-20, erc-721.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
-The time period for which to return stats. Must be one of: day, week, month, year, all.  
+The time period for which to return stats and price. Must be one of: day, week, month, year, all.  
 _Default value is day._
 {% endapi-method-parameter %}
 
@@ -624,23 +652,36 @@ Returned when all parameters are valid.
   "tokens": [
     {
       "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "imageUrl": "https://raw.githubusercontent.com/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+      "circulatingSupply": null,
+      "imageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
       "lastTrade": {
-        "id": "5dc06f57ab099b00048e0737",
-        "date": "2019-11-04T18:34:26.000Z"
+        "date": "2020-04-16T19:01:36.000Z",
+        "id": "5e98ac33f3edba0548d57499"
       },
+      "marketCap": 401979735.10782796,
       "name": "Wrapped Ether",
       "price": {
-        "last": 186.72
+        "change": 8.509557376008132,
+        "close": 170.87,
+        "high": 174.47853088378906,
+        "last": 170.87,
+        "low": 145.86898803710938,
+        "open": 157.47
       },
-      "symbol": "WETH",
       "stats": {
-        "fillCount": 1067,
+        "fillCount": 3434,
         "fillVolume": {
-          "token": "4214.4828876902467",
-          "USD": 776534.3341971342
+          "token": 29353.28848995183,
+          "USD": 4840761.2617340805
+        },
+        "tradeCount": 3092,
+        "tradeVolume": {
+          "token": 25423.74629868023,
+          "USD": 4190355.757510045
         }
       },
+      "symbol": "WETH",
+      "totalSupply": 2352547.1709944867,
       "type": "erc-20"
     },
     // ...
@@ -1115,6 +1156,10 @@ Returns a collection of metrics for the specified token and time period.
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="token" type="string" required=true %}
 Address of the token to fetch metrics for.
 {% endapi-method-parameter %}
@@ -1135,19 +1180,35 @@ Returned when all parameters are valid.
 ```javascript
 [
   {
-    "date": "2019-10-05T00:00:00.000Z",
-    "fillCount": 241,
+    "date": "2020-03-18T00:00:00.000Z",
+    "fillCount": 2629,
     "fillVolume": {
-      "token": "492473.991404",
-      "USD": 495067.7333900565
+      "token": 17862.190608243993,
+      "USD": 2057401.0503150492
+    },
+    "tradeCount": 2231,
+    "tradeVolume": {
+      "token": 16152.55733998471,
+      "USD": 1860912.8854162937
+    },
+    "price": {
+      "close": 118.59575932663792
     }
   },
   {
-    "date": "2019-10-06T00:00:00.000Z",
-    "fillCount": 192,
+    "date": "2020-03-19T00:00:00.000Z",
+    "fillCount": 2702,
     "fillVolume": {
-      "token": "262563.466067",
-      "USD": 263534.0645080984
+      "token": 35666.59929770062,
+      "USD": 4625891.901006651
+    },
+    "tradeCount": 2495,
+    "tradeVolume": {
+      "token": 30823.688957643713,
+      "USD": 3979471.2098343465
+    },
+    "price": {
+      "close": 136.7
     }
   },
   // ...
