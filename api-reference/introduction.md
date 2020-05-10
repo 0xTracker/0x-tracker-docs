@@ -10,3 +10,6 @@ https://api.0xtracker.com
 
 All requests to the API will receive [JSON](https://www.json.org/) encoded responses and conventional HTTP response codes. No API keys or authentication is necessary when making requests.
 
+## Attribution
+
+The 0x Tracker API is free to use without restriction however we ask that you provide attribution with a link/reference back to 0xtracker.com if your use of the data is made public (e.g. infographics, web UIs, PDF reports). Something as simple as "xyz data provided by [0x Tracker](https://0xtracker.com)" or "Source: 0xtracker.com" will do.
