@@ -18,9 +18,9 @@ Be sure to check whether your issue has not already been raised by someone else.
 
 ## Updating content
 
-### Relayers
+### Apps
 
-Please refer to the "[How can I get my 0x relayer listed on 0x Tracker?](https://docs.0xtracker.com/faqs#how-can-i-get-my-0x-relayer-listed-on-0x-tracker)" FAQ for more details about how to get your relayer details listed on 0x Tracker.
+Please refer to the "[How can I get my 0x-based app listed on 0x Tracker?](faqs.md#how-can-i-get-my-0x-app-listed-on-0x-tracker)" FAQ for more details about how to get your 0x-based app listed on 0x Tracker.
 
 ### Tokens
 
