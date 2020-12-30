@@ -18,5 +18,6 @@ The 0x Tracker API is free to use without restriction however we ask that you pr
 
 If you're making use of the 0x API in your project then be sure to let us know \(hello@0xtracker.com\) so that we can feature you here.
 
+* [CoinGecko](https://coingecko.com)
 * [Token Terminal](https://www.tokenterminal.xyz/)
 
