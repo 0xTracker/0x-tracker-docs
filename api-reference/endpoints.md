@@ -2,390 +2,6 @@
 
 ## Entities
 
-{% api-method method="get" host="https://api.0xtracker.com" path="/article-sources" %}
-{% api-method-summary %}
-Article Sources
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a collection of article sources which can be used to filter the articles endpoint.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "name": "0x",
-    "url": "https://0x.org",
-    "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
-    "slug": "0x"
-  },
-  // ...
-]
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/articles" %}
-{% api-method-summary %}
-Articles
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a paged collection of news articles matching the specified parameters. Articles are sorted from most recent to least recent.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="source" type="string" required=false %}
-Slug of an article source to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="page" type="number" required=false %}
-The page of data to return.  
-_Default is 1._
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when all parameters are valid.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "articles": [
-    {
-      "date": "2019-10-30T16:01:21.000Z",
-      "id": "5db9b589ce5d870004529e18",
-      "summary": "Announcing the upcoming 0x v3 vote",
-      "title": "0x: The Community-owned Liquidity API",
-      "url": "https://blog.0xproject.com/0x-the-community-owned-liquidity-api-26da5732447e?source=rss----86e37ca8e375---4",
-      "source": {
-        "name": "0x",
-        "url": "https://0x.org",
-        "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
-        "slug": "0x"
-      }
-    },
-  ],
-  "limit": 12,
-  "page": 1,
-  "pageCount": 40,
-  "total": 473
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/fills/:id" %}
-{% api-method-summary %}
-Trade
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns the full details of a single trade.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-path-parameters %}
-{% api-method-parameter name="id" type="string" required=true %}
-ID of the trade to fetch.
-{% endapi-method-parameter %}
-{% endapi-method-path-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when the specified ID matches a valid fill.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "assets": [
-    {
-      "amount": "0.023595691875",
-      "price": {
-        "USD": 186.72
-      },
-      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
-      "tokenSymbol": "WETH",
-      "tokenType": "Wrapped Ether",
-      "traderType": "maker",
-      "type": "erc-20"
-    },
-    {
-      "amount": "2041",
-      "price": {
-        "USD": 0.0021586416398334148
-      },
-      "tokenAddress": "0x503f9794d6a6bb0df8fbb19a2b3e2aeab35339ad",
-      "tokenSymbol": "SBT",
-      "tokenType": "Star Bit Token",
-      "traderType": "taker",
-      "type": "erc-20"
-    }
-  ],
-  "date": "2019-11-04T18:26:05.000Z",
-  "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
-  "id": "5dc06d68ab099b000489d3fe",
-  "makerAddress": "0xda912ecc847b3d98ca882e396e693e485deed518",
-  "makerFee": {
-    "USD": 0,
-    "ZRX": "0"
-  },
-  "orderHash": "0x9165afe0f746839d2f390972b9a4473910143e6650be48477e7eb0196b607b02",
-  "protocolVersion": 2,
-  "relayer": {
-    "slug": "star-bit",
-    "name": "STAR BIT",
-    "imageUrl": "https://0xtracker.com/assets/logos/starbit.png"
-  },
-  "senderAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
-  "status": "successful",
-  "takerAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
-  "takerFee": {
-    "USD": 0,
-    "ZRX": "0"
-  },
-  "totalFees": {
-    "USD": 0,
-    "ZRX": "0"
-  },
-  "transactionHash": "0xc99fc0a2c65da2d3b94a1cd979afb05317203354a2dc6999c0dde26c61fecd0e",
-  "value": {
-    "USD": 4.4057875869
-  }
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=404 %}
-{% api-method-response-example-description %}
-Returned when no fill can be found with the specified ID.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "errors": [
-    {
-      "code": "INVALID_URL",
-      "status": 404,
-      "title": "The requested URL is invalid."
-    }
-  ]
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/fills" %}
-{% api-method-summary %}
-Trades
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a paginated collection of trades matching the specified parameters.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="trader" type="string" required=false %}
-Trader address to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="sortDirection" type="string" required=false %}
-The direction in which results should be sorted. Valid values are: "asc" and "desc".  
-_Default value is "desc"._
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="sortBy" type="string" required=false %}
-The field by which to sort results. Valid values are: "date", "protocolFeeUSD" and "value".  
-_Default value is "date"._
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="apps" type="string" required=false %}
-A comma-separated list of app IDs to filter by. App IDs can be found by calling the apps endpoint.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="valueTo" type="number" required=false %}
-Minimum trade value \(in USD\) to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="valueFrom" type="number" required=false %}
-Minimum trade value \(in USD\) to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="protocolVersion" type="number" required=false %}
-Protocol version to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="token" type="string" required=false %}
-Address of a token to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of trades to return per page.   
-_Default value is 20. Maximum value is 50._
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="page" type="number" required=false %}
-The page of data to return.   
-_Default value is 1._
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when all parameters are valid.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-    "fills": [
-        {
-            "assets": [],
-            "date": "2019-11-03T18:22:06.000Z",
-            "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
-            "id": "5dbf1ae6aec0cb0004fef608",
-            "makerAddress": "0x260e92d7b25c9315d068b2c3ca5f234d0cf9e505"
-        },
-        // ...
-    ],
-    "limit": 50,
-    "page": 1,
-    "pageCount": 17221,
-    "total": 344408
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=400 %}
-{% api-method-response-example-description %}
-Returned when a parameter is invalid.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "errors": [
-    {
-      "code": "INVALID_PARAMETER",
-      "message": "Invalid query parameter: relayer",
-      "reason": "No relayer exists with an ID of \"fubar\"",
-      "status": 400
-    }
-  ]
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/protocols" %}
-{% api-method-summary %}
-Protocols
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a paginated collection of protocols matching the specified parameters.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="sortBy" type="string" required=false %}
-The field by which to sort protocols. Must be one of: fillCount, fillVolume.  
-_Default value is fillVolume._
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="statsPeriod" type="string" required=false %}
-The time period for which to return stats. Must be one of: day, week, month, year, all.  
-_Default value is day._
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when all parameters are valid.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "protocols": [
-    {
-      "stats": {
-        "fillCount": 2026,
-        "fillVolume": 1728911.7356433223,
-        "tradeCount": 1559,
-        "tradeVolume": 1285629.9583338788
-      },
-      "version": 2
-    },
-    {
-      "stats": {
-        "fillCount": 374,
-        "fillVolume": 585201.4918576538,
-        "tradeCount": 357,
-        "tradeVolume": 540775.9960855007
-      },
-      "version": 3
-    }
-  ],
-  "page": 1,
-  "pageCount": 1,
-  "limit": 20,
-  "total": 2
-}
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=400 %}
-{% api-method-response-example-description %}
-Returned when a parameter is invalid.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "errors": [
-    {
-      "code": "INVALID_PARAMETER",
-      "message": "Invalid query parameter: sortBy",
-      "reason": "Must be one of: fillCount, fillVolume",
-      "status": 400
-    }
-  ]
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
 {% api-method method="get" host="https://api.0xtracker.com" path="/apps/:slug" %}
 {% api-method-summary %}
 App
@@ -532,6 +148,179 @@ Returned when a parameter is invalid.
       "code": "INVALID_PARAMETER",
       "message": "Invalid statsPeriod parameter: fubar",
       "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/article-sources" %}
+{% api-method-summary %}
+Article Sources
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of article sources which can be used to filter the articles endpoint.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "name": "0x",
+    "url": "https://0x.org",
+    "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
+    "slug": "0x"
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/articles" %}
+{% api-method-summary %}
+Articles
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paged collection of news articles matching the specified parameters. Articles are sorted from most recent to least recent.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="source" type="string" required=false %}
+Slug of an article source to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return.  
+_Default is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "articles": [
+    {
+      "date": "2019-10-30T16:01:21.000Z",
+      "id": "5db9b589ce5d870004529e18",
+      "summary": "Announcing the upcoming 0x v3 vote",
+      "title": "0x: The Community-owned Liquidity API",
+      "url": "https://blog.0xproject.com/0x-the-community-owned-liquidity-api-26da5732447e?source=rss----86e37ca8e375---4",
+      "source": {
+        "name": "0x",
+        "url": "https://0x.org",
+        "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
+        "slug": "0x"
+      }
+    },
+  ],
+  "limit": 12,
+  "page": 1,
+  "pageCount": 40,
+  "total": 473
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/protocols" %}
+{% api-method-summary %}
+Protocols
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paginated collection of protocols matching the specified parameters.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="sortBy" type="string" required=false %}
+The field by which to sort protocols. Must be one of: fillCount, fillVolume.  
+_Default value is fillVolume._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats. Must be one of: day, week, month, year, all.  
+_Default value is day._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "protocols": [
+    {
+      "stats": {
+        "fillCount": 2026,
+        "fillVolume": 1728911.7356433223,
+        "tradeCount": 1559,
+        "tradeVolume": 1285629.9583338788
+      },
+      "version": 2
+    },
+    {
+      "stats": {
+        "fillCount": 374,
+        "fillVolume": 585201.4918576538,
+        "tradeCount": 357,
+        "tradeVolume": 540775.9960855007
+      },
+      "version": 3
+    }
+  ],
+  "page": 1,
+  "pageCount": 1,
+  "limit": 20,
+  "total": 2
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: sortBy",
+      "reason": "Must be one of: fillCount, fillVolume",
       "status": 400
     }
   ]
@@ -825,6 +614,217 @@ Returned when a parameter is invalid.
       "code": "INVALID_PARAMETER",
       "message": "Invalid statsPeriod parameter: fubar",
       "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/fills/:id" %}
+{% api-method-summary %}
+Trade
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns the full details of a single trade.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-path-parameters %}
+{% api-method-parameter name="id" type="string" required=true %}
+ID of the trade to fetch.
+{% endapi-method-parameter %}
+{% endapi-method-path-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when the specified ID matches a valid fill.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "assets": [
+    {
+      "amount": "0.023595691875",
+      "price": {
+        "USD": 186.72
+      },
+      "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenSymbol": "WETH",
+      "tokenType": "Wrapped Ether",
+      "traderType": "maker",
+      "type": "erc-20"
+    },
+    {
+      "amount": "2041",
+      "price": {
+        "USD": 0.0021586416398334148
+      },
+      "tokenAddress": "0x503f9794d6a6bb0df8fbb19a2b3e2aeab35339ad",
+      "tokenSymbol": "SBT",
+      "tokenType": "Star Bit Token",
+      "traderType": "taker",
+      "type": "erc-20"
+    }
+  ],
+  "date": "2019-11-04T18:26:05.000Z",
+  "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+  "id": "5dc06d68ab099b000489d3fe",
+  "makerAddress": "0xda912ecc847b3d98ca882e396e693e485deed518",
+  "makerFee": {
+    "USD": 0,
+    "ZRX": "0"
+  },
+  "orderHash": "0x9165afe0f746839d2f390972b9a4473910143e6650be48477e7eb0196b607b02",
+  "protocolVersion": 2,
+  "relayer": {
+    "slug": "star-bit",
+    "name": "STAR BIT",
+    "imageUrl": "https://0xtracker.com/assets/logos/starbit.png"
+  },
+  "senderAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
+  "status": "successful",
+  "takerAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
+  "takerFee": {
+    "USD": 0,
+    "ZRX": "0"
+  },
+  "totalFees": {
+    "USD": 0,
+    "ZRX": "0"
+  },
+  "transactionHash": "0xc99fc0a2c65da2d3b94a1cd979afb05317203354a2dc6999c0dde26c61fecd0e",
+  "value": {
+    "USD": 4.4057875869
+  }
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=404 %}
+{% api-method-response-example-description %}
+Returned when no fill can be found with the specified ID.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_URL",
+      "status": 404,
+      "title": "The requested URL is invalid."
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/fills" %}
+{% api-method-summary %}
+Trades
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a paginated collection of trades matching the specified parameters.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="trader" type="string" required=false %}
+Trader address to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sortDirection" type="string" required=false %}
+The direction in which results should be sorted. Valid values are: "asc" and "desc".  
+_Default value is "desc"._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sortBy" type="string" required=false %}
+The field by which to sort results. Valid values are: "date", "protocolFeeUSD" and "value".  
+_Default value is "date"._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="apps" type="string" required=false %}
+A comma-separated list of app IDs to filter by. App IDs can be found by calling the apps endpoint.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="valueTo" type="number" required=false %}
+Minimum trade value \(in USD\) to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="valueFrom" type="number" required=false %}
+Minimum trade value \(in USD\) to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="protocolVersion" type="number" required=false %}
+Protocol version to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="token" type="string" required=false %}
+Address of a token to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="limit" type="number" required=false %}
+The maximum number of trades to return per page.   
+_Default value is 20. Maximum value is 50._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="page" type="number" required=false %}
+The page of data to return.   
+_Default value is 1._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+    "fills": [
+        {
+            "assets": [],
+            "date": "2019-11-03T18:22:06.000Z",
+            "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+            "id": "5dbf1ae6aec0cb0004fef608",
+            "makerAddress": "0x260e92d7b25c9315d068b2c3ca5f234d0cf9e505"
+        },
+        // ...
+    ],
+    "limit": 50,
+    "page": 1,
+    "pageCount": 17221,
+    "total": 344408
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: relayer",
+      "reason": "No relayer exists with an ID of \"fubar\"",
       "status": 400
     }
   ]
