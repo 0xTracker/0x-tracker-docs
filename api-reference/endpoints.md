@@ -95,18 +95,18 @@ Returned when all parameters are valid.
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/fills/:id" %}
 {% api-method-summary %}
-Fill
+Trade
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns the full details of a single fill.
+Returns the full details of a single trade.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-path-parameters %}
 {% api-method-parameter name="id" type="string" required=true %}
-ID of the fill to fetch.
+ID of the trade to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 {% endapi-method-request %}
@@ -200,30 +200,44 @@ Returned when no fill can be found with the specified ID.
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/fills" %}
 {% api-method-summary %}
-Fills
+Trades
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of fills matching the specified parameters. Fills are sorted from most recent to least recent.
+Returns a paginated collection of trades matching the specified parameters.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="trader" type="string" required=false %}
+Trader address to filter by.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sortDirection" type="string" required=false %}
+The direction in which results should be sorted. Valid values are: "asc" and "desc".  
+_Default value is "desc"._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sortBy" type="string" required=false %}
+The field by which to sort results. Valid values are: "date", "protocolFeeUSD" and "value".  
+_Default value is "date"._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="apps" type="string" required=false %}
+A comma-separated list of app IDs to filter by. App IDs can be found by calling the apps endpoint.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="valueTo" type="number" required=false %}
-Minimum fill value \(in USD\) to filter by.
+Minimum trade value \(in USD\) to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="valueFrom" type="number" required=false %}
-Minimum fill value \(in USD\) to filter by.
+Minimum trade value \(in USD\) to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="protocolVersion" type="number" required=false %}
 Protocol version to filter by.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="relayer" type="string" required=false %}
-ID of a relayer to filter by. Relayer IDs can be found by calling the relayers endpoint.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="token" type="string" required=false %}
@@ -231,7 +245,7 @@ Address of a token to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of fills to return per page.   
+The maximum number of trades to return per page.   
 _Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
@@ -289,12 +303,6 @@ Returned when a parameter is invalid.
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
-
-{% hint style="info" %}
-**Notes:** 
-
-This endpoint only provides transaction data for the last six months. Please [get in touch](https://docs.0xtracker.com/#need-to-get-in-touch) to discuss paid options if you require a full transaction history.
-{% endhint %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/protocols" %}
 {% api-method-summary %}
@@ -378,13 +386,13 @@ Returned when a parameter is invalid.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="https://api.0xtracker.com" path="/relayers/:slug" %}
+{% api-method method="get" host="https://api.0xtracker.com" path="/apps/:slug" %}
 {% api-method-summary %}
-Relayer
+App
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns the details of a single relayer.
+Returns the details and stats of a single app.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -394,6 +402,13 @@ Returns the details of a single relayer.
 Slug of the relayer to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
+
+{% api-method-query-parameters %}
+{% api-method-parameter name="statsPeriod" type="string" required=false %}
+The time period for which to return stats. Valid values are: "day", "week", "month", "year" and "all".  
+_Default value is "day"._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
 {% endapi-method-request %}
 
 {% api-method-response %}
@@ -434,25 +449,35 @@ Returned when no relayer can be found matching the specified slug.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="https://api.0xtracker.com" path="/relayers" %}
+{% api-method method="get" host="https://api.0xtracker.com" path="/apps" %}
 {% api-method-summary %}
-Relayers
+Apps
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a paginated collection of active relayers and their associated stats for the specified time period. Relayers are returned in order of most trade volume to least trade volume.
+Returns a paginated collection of active apps and their associated stats for the specified time period.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="sortDirection" type="string" required=false %}
+The direction in which to sort results Valid values are "asc" and "desc".  
+_Default value is "desc"._
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="sortBy" type="string" required=false %}
+The field by which to sort results. Valid values are: "activeTraders", "tradeCount" and "tradeVolume".  
+_Default value is "tradeVolume"._
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
-The time period for which to return stats. Must be one of: day, week, month, year, all.   
-_Default value is day._
+The time period for which to return stats. Valid values are: "day", "week", "month", "year" and "all".   
+_Default value is "day"._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of relayers to return per page.   
+The maximum number of apps to return per page.   
 _Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
@@ -1068,29 +1093,29 @@ Returned when a parameter is invalid.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/relayer" %}
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/app" %}
 {% api-method-summary %}
-Relayer Metrics
+App Metrics
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a collection of metrics for the specified relayer and time period.
+Returns a collection of metrics for the specified app and time period.
 {% endapi-method-description %}
 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
 {% api-method-parameter name="granularity" type="string" required=false %}
-Granularity at which to aggregate metrics. Must be one of: hour, day, week, month. Valid values vary based on specified period \(see note above\).
+Granularity at which to aggregate metrics. Valid values are: "hour", "day", "week" and "month". Valid values vary based on specified period \(see note above\).
 {% endapi-method-parameter %}
 
-{% api-method-parameter name="relayer" type="string" required=true %}
-Id of the relayer to fetch metrics for.
+{% api-method-parameter name="app" type="string" required=true %}
+ID of the app to fetch metrics for. App IDs can be found by calling the apps endpoint.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="period" type="string" required=false %}
-Time period for which to return metrics. Must be one of: day, week, month, year, all.  
-_Default value is month._
+Time period for which to return metrics. Valid values are: "day", "week", "month", "year" and "all".  
+_Default value is "month"._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
 {% endapi-method-request %}
@@ -1415,7 +1440,7 @@ Trader Stats
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns trader stats for the specified time period.
+Returns active trader stats for the specified time period.
 {% endapi-method-description %}
 
 {% api-method-spec %}

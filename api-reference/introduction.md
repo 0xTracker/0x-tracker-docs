@@ -12,10 +12,11 @@ All requests to the API will receive [JSON](https://www.json.org/) encoded respo
 
 ## Attribution
 
-The 0x Tracker API is free to use without restriction however we ask that you provide attribution with a link/reference back to 0xtracker.com if your use of the data is made public (e.g. infographics, web UIs, PDF reports). Something as simple as "xyz data provided by [0x Tracker](https://0xtracker.com)" or "Source: 0xtracker.com" will do.
+The 0x Tracker API is free to use without restriction however we ask that you provide attribution with a link/reference back to 0xtracker.com if your use of the data is made public \(e.g. infographics, web UIs, PDF reports\). Something as simple as "xyz data provided by [0x Tracker](https://0xtracker.com)" or "Source: 0xtracker.com" will do.
 
 ## Projects using the API
 
-If you're making use of the 0x API in your project then be sure to let us know (hello@0xtracker.com) so that we can feature you here.
+If you're making use of the 0x API in your project then be sure to let us know \(hello@0xtracker.com\) so that we can feature you here.
 
 * [Token Terminal](https://www.tokenterminal.xyz/)
+
