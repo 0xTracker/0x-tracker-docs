@@ -15,7 +15,7 @@ Returns the details and stats of a single app.
 {% api-method-request %}
 {% api-method-path-parameters %}
 {% api-method-parameter name="slug" type="string" required=false %}
-Slug of the relayer to fetch.
+Slug of the app to fetch.
 {% endapi-method-parameter %}
 {% endapi-method-path-parameters %}
 
@@ -30,23 +30,69 @@ _Default value is "day"._
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-Returned when a relayer is found matching the specified slug.
+Returned when an app is found matching the specified slug.
 {% endapi-method-response-example-description %}
 
 ```javascript
 {
-  "id": "radarRelay",
-  "imageUrl": "https://0xtracker.com/assets/logos/radar-relay.png",
-  "name": "Radar Relay",
-  "slug": "radar-relay",
-  "url": "https://radarrelay.com"
+  "categories": [
+    "dex-aggregator",
+    "relayer"
+  ],
+  "description": "Built by the 0x core team – Matcha is a DEX aggregator built on top of 0x API which allows users to easily swap tokens and place limit orders.",
+  "id": "5067df8b-f9cd-4a34-aee1-38d607100145",
+  "logoUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/matcha.png",
+  "name": "Matcha",
+  "stats": {
+    "activeTraders": 2018,
+    "activeTradersChange": -28.768090363572185,
+    "avgTradeSize": 6993.46645518334,
+    "avgTradeSizeChange": 109.03017173450618,
+    "tradeCount": {
+      "relayed": 94,
+      "total": 3034
+    },
+    "tradeCountChange": {
+      "relayed": 80.76923076923077,
+      "total": -22.72032603158431
+    },
+    "tradeVolume": {
+      "relayed": 2725771.217305796,
+      "total": 21183209.892750338
+    },
+    "tradeVolumeChange": {
+      "relayed": 273.2930045664127,
+      "total": 61.477273701560634
+    }
+  },
+  "urlSlug": "matcha",
+  "websiteUrl": "https://matcha.xyz"
+}
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when a parameter is invalid.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid statsPeriod parameter: fubar",
+      "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
 }
 ```
 {% endapi-method-response-example %}
 
 {% api-method-response-example httpCode=404 %}
 {% api-method-response-example-description %}
-Returned when no relayer can be found matching the specified slug.
+Returned when no app can be found matching the specified slug.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -88,17 +134,17 @@ _Default value is "tradeVolume"._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
-The time period for which to return stats. Valid values are: "day", "week", "month", "year" and "all".   
+The time period for which to return stats. Valid values are: "day", "week", "month", "year" and "all".  
 _Default value is "day"._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of apps to return per page.   
+The maximum number of apps to return per page.  
 _Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
-The page of data to return.   
+The page of data to return.  
 _Default value is 1._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
@@ -112,19 +158,37 @@ Returned when all parameters are valid.
 
 ```javascript
 {
-  "relayers": [
+  "apps": [
     {
-      "id": "tokenlon",
-      "imageUrl": "https://0xtracker.com/assets/logos/tokenlon.png",
-      "name": "Tokenlon",
-      "slug": "tokenlon",
+      "categories": [
+        "relayer"
+      ],
+      "description": "Built by the 0x core team – 0x API makes accessing DEX liquidity easy through the use of smart order routing which aggregates liquidity from 0x Mesh, Kyber, Uniswap, and more.",
+      "id": "052b4862-2142-4532-bdc0-416814b0a5fe",
+      "logoUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/0x-api.png",
+      "name": "0x API",
       "stats": {
-        "fillCount": 305,
-        "fillVolume": 713586.326758335,
-        "tradeCount": 305,
-        "tradeVolume": 713586.326758335
+        "activeTraders": 4857,
+        "activeTradersChange": -16.099499049922265,
+        "tradeCount": {
+          "relayed": 7316,
+          "total": 7316
+        },
+        "tradeCountChange": {
+          "relayed": -14.900546702338024,
+          "total": -14.900546702338024
+        },
+        "tradeVolume": {
+          "relayed": 27118521.443833765,
+          "total": 27118521.443833765
+        },
+        "tradeVolumeChange": {
+          "relayed": 30.176737544737716,
+          "total": 30.176737544737716
+        }
       },
-      "url": "https://tokenlon.token.im/tokenlon"
+      "urlSlug": "0x-api",
+      "websiteUrl": "https://0x.org/api"
     },
     // ...
   ],
@@ -159,42 +223,10 @@ Returned when a parameter is invalid.
 {% endapi-method %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/article-sources" %}
-{% api-method-summary %}
-Article Sources
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a collection of article sources which can be used to filter the articles endpoint.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "name": "0x",
-    "url": "https://0x.org",
-    "imageUrl": "https://0xtracker.com/assets/logos/0x.png",
-    "slug": "0x"
-  },
-  // ...
-]
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
 
 {% api-method method="get" host="https://api.0xtracker.com" path="/articles" %}
 {% api-method-summary %}
-Articles
+
 {% endapi-method-summary %}
 
 {% api-method-description %}
@@ -645,18 +677,30 @@ ID of the trade to fetch.
 {% api-method-response %}
 {% api-method-response-example httpCode=200 %}
 {% api-method-response-example-description %}
-Returned when the specified ID matches a valid fill.
+Returned when the specified ID matches a valid trade.
 {% endapi-method-response-example-description %}
 
 ```javascript
 {
+  "affiliate": null,
+  "apps": [
+    {
+      "id": "a5808078-d297-4fbd-a818-dccd8a5438ed",
+      "logoUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/star-bit.png",
+      "name": "STAR BIT",
+      "type": "relayer",
+      "urlSlug": "star-bit"
+    }
+  ],
   "assets": [
     {
       "amount": "0.023595691875",
+      "bridge": null,
       "price": {
-        "USD": 186.72
+        "USD": 186.71999999999997
       },
       "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "tokenImageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
       "tokenSymbol": "WETH",
       "tokenType": "Wrapped Ether",
       "traderType": "maker",
@@ -664,43 +708,70 @@ Returned when the specified ID matches a valid fill.
     },
     {
       "amount": "2041",
+      "bridge": null,
       "price": {
         "USD": 0.0021586416398334148
       },
       "tokenAddress": "0x503f9794d6a6bb0df8fbb19a2b3e2aeab35339ad",
+      "tokenImageUrl": "https://0xtracker.com/assets/logos/starbit.png",
       "tokenSymbol": "SBT",
       "tokenType": "Star Bit Token",
       "traderType": "taker",
       "type": "erc-20"
     }
   ],
-  "date": "2019-11-04T18:26:05.000Z",
+  "date": "2019-11-04T18:22:03.000Z",
+  "fees": [],
   "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+  "feeRecipientMetadata": {
+    "address": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
+    "imageUrl": null,
+    "isContract": false,
+    "name": null
+  },
   "id": "5dc06d68ab099b000489d3fe",
   "makerAddress": "0xda912ecc847b3d98ca882e396e693e485deed518",
-  "makerFee": {
-    "USD": 0,
-    "ZRX": "0"
+  "maker": {
+    "address": "0xda912ecc847b3d98ca882e396e693e485deed518",
+    "imageUrl": null,
+    "isContract": false,
+    "name": null
   },
   "orderHash": "0x9165afe0f746839d2f390972b9a4473910143e6650be48477e7eb0196b607b02",
   "protocolVersion": 2,
   "relayer": {
-    "slug": "star-bit",
+    "imageUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/star-bit.png",
     "name": "STAR BIT",
-    "imageUrl": "https://0xtracker.com/assets/logos/starbit.png"
+    "slug": "star-bit"
   },
   "senderAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
+  "sender": {
+    "address": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
+    "imageUrl": "https://cdn.staticaly.com/gh/0xTracker/ethereum-address-metadata/master/images/starbit.png",
+    "isContract": false,
+    "name": "StarbitEx"
+  },
   "status": "successful",
   "takerAddress": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
-  "takerFee": {
-    "USD": 0,
-    "ZRX": "0"
-  },
-  "totalFees": {
-    "USD": 0,
-    "ZRX": "0"
+  "taker": {
+    "address": "0x0681e844593a051e2882ec897ecd5444efe19ff2",
+    "imageUrl": "https://cdn.staticaly.com/gh/0xTracker/ethereum-address-metadata/master/images/starbit.png",
+    "isContract": false,
+    "name": "StarbitEx"
   },
   "transactionHash": "0xc99fc0a2c65da2d3b94a1cd979afb05317203354a2dc6999c0dde26c61fecd0e",
+  "transactionFrom": {
+    "address": "0x0681E844593A051E2882Ec897ecD5444eFE19FF2",
+    "imageUrl": null,
+    "isContract": null,
+    "name": null
+  },
+  "transactionTo": {
+    "address": "0x080bf510FCbF18b91105470639e9561022937712",
+    "imageUrl": null,
+    "isContract": null,
+    "name": null
+  },
   "value": {
     "USD": 4.4057875869
   }
@@ -710,7 +781,7 @@ Returned when the specified ID matches a valid fill.
 
 {% api-method-response-example httpCode=404 %}
 {% api-method-response-example-description %}
-Returned when no fill can be found with the specified ID.
+Returned when no trade can be found with the specified ID.
 {% endapi-method-response-example-description %}
 
 ```javascript
@@ -776,12 +847,12 @@ Address of a token to filter by.
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="limit" type="number" required=false %}
-The maximum number of trades to return per page.   
+The maximum number of trades to return per page.  
 _Default value is 20. Maximum value is 50._
 {% endapi-method-parameter %}
 
 {% api-method-parameter name="page" type="number" required=false %}
-The page of data to return.   
+The page of data to return.  
 _Default value is 1._
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
@@ -797,11 +868,58 @@ Returned when all parameters are valid.
 {
     "fills": [
         {
-            "assets": [],
-            "date": "2019-11-03T18:22:06.000Z",
-            "feeRecipient": "0x8124071f810d533ff63de61d0c98db99eeb99d64",
-            "id": "5dbf1ae6aec0cb0004fef608",
-            "makerAddress": "0x260e92d7b25c9315d068b2c3ca5f234d0cf9e505"
+          "apps": [
+            {
+              "id": "0a5d5f06-1626-4276-893f-42527e5a4147",
+              "logoUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/tokenlon.png",
+              "name": "Tokenlon",
+              "type": "relayer",
+              "urlSlug": "tokenlon"
+            }
+          ],
+          "assets": [
+            {
+              "amount": "367.191483",
+              "bridge": null,
+              "price": {
+                "USD": 0.9997
+              },
+              "tokenAddress": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+              "tokenImageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
+              "tokenSymbol": "USDT",
+              "tokenType": "Tether USD",
+              "traderType": "maker",
+              "type": "erc-20"
+            },
+            {
+              "amount": "0.5",
+              "bridge": null,
+              "price": {
+                "USD": 734.1626511102
+              },
+              "tokenAddress": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+              "tokenImageUrl": "https://cdn.staticaly.com/gh/TrustWallet/tokens/master/tokens/0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2.png",
+              "tokenSymbol": "WETH",
+              "tokenType": "Wrapped Ether",
+              "traderType": "taker",
+              "type": "erc-20"
+            }
+          ],
+          "date": "2020-12-30T14:47:21.000Z",
+          "feeRecipient": "0xd4dff17ccf7ca237e66270cc097ae60dabf8f85b",
+          "id": "5fec93c57f7a4022f922b139",
+          "makerAddress": "0x9c597c4da5e8f052182fe9b3d12af7e61e8d809b",
+          "protocolVersion": 2,
+          "relayer": {
+            "imageUrl": "https://cdn.staticaly.com/gh/0xTracker/0x-tracker-worker/master/src/attributions/logos/tokenlon.png",
+            "name": "Tokenlon",
+            "slug": "tokenlon"
+          },
+          "status": "successful",
+          "takerAddress": "0x8d90113a1e286a5ab3e496fbd1853f265e5913c6",
+          "value": {
+            "USD": 367.0813255551
+          }
         },
         // ...
     ],
@@ -823,8 +941,8 @@ Returned when a parameter is invalid.
   "errors": [
     {
       "code": "INVALID_PARAMETER",
-      "message": "Invalid query parameter: relayer",
-      "reason": "No relayer exists with an ID of \"fubar\"",
+      "message": "Invalid query parameter: app",
+      "reason": "No app exists with an ID of \"fubar\"",
       "status": 400
     }
   ]
@@ -853,7 +971,7 @@ Active Trader Metrics
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Returns a collection of active trader metrics for the specified time period. 
+Returns a collection of active trader metrics for the specified time period.
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -907,6 +1025,82 @@ Returned when a parameter is invalid.
       "code": "INVALID_PARAMETER",
       "message": "Invalid period parameter: fubar",
       "reason": "Must be one of: day, week, month, year, all",
+      "status": 400
+    }
+  ]
+}
+```
+{% endapi-method-response-example %}
+{% endapi-method-response %}
+{% endapi-method-spec %}
+{% endapi-method %}
+
+{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/app" %}
+{% api-method-summary %}
+App Metrics
+{% endapi-method-summary %}
+
+{% api-method-description %}
+Returns a collection of metrics for the specified app and time period.
+{% endapi-method-description %}
+
+{% api-method-spec %}
+{% api-method-request %}
+{% api-method-query-parameters %}
+{% api-method-parameter name="granularity" type="string" required=false %}
+Granularity at which to aggregate metrics. Valid values are: "hour", "day", "week" and "month". Valid values vary based on specified period \(see note above\).
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="app" type="string" required=true %}
+ID of the app to fetch metrics for. App IDs can be found by calling the apps endpoint.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="period" type="string" required=false %}
+Time period for which to return metrics. Valid values are: "day", "week", "month", "year" and "all".  
+_Default value is "month"._
+{% endapi-method-parameter %}
+{% endapi-method-query-parameters %}
+{% endapi-method-request %}
+
+{% api-method-response %}
+{% api-method-response-example httpCode=200 %}
+{% api-method-response-example-description %}
+Returned when all parameters are valid.
+{% endapi-method-response-example-description %}
+
+```javascript
+[
+  {
+    "date": "2019-10-09T00:00:00.000Z",
+    "fillCount": 505,
+    "fillVolume": 804818.3748855987,
+    "tradeCount": 505,
+    "tradeVolume": 804818.3748855987
+  },
+  {
+    "date": "2019-10-10T00:00:00.000Z",
+    "fillCount": 613,
+    "fillVolume": 786533.7512397981,
+    "tradeCount": 613,
+    "tradeVolume": 786533.7512397981
+  },
+  // ...
+]
+```
+{% endapi-method-response-example %}
+
+{% api-method-response-example httpCode=400 %}
+{% api-method-response-example-description %}
+Returned when an invalid query parameter is provided.
+{% endapi-method-response-example-description %}
+
+```javascript
+{
+  "errors": [
+    {
+      "code": "INVALID_PARAMETER",
+      "message": "Invalid query parameter: relayer",
+      "reason": "No relayer exists with an ID of \"fubar\"",
       "status": 400
     }
   ]
@@ -1083,82 +1277,6 @@ Returned when a parameter is invalid.
       "code": "INVALID_PARAMETER",
       "message": "Invalid period parameter: fubar",
       "reason": "Must be one of: day, week, month, year, all",
-      "status": 400
-    }
-  ]
-}
-```
-{% endapi-method-response-example %}
-{% endapi-method-response %}
-{% endapi-method-spec %}
-{% endapi-method %}
-
-{% api-method method="get" host="https://api.0xtracker.com" path="/metrics/app" %}
-{% api-method-summary %}
-App Metrics
-{% endapi-method-summary %}
-
-{% api-method-description %}
-Returns a collection of metrics for the specified app and time period.
-{% endapi-method-description %}
-
-{% api-method-spec %}
-{% api-method-request %}
-{% api-method-query-parameters %}
-{% api-method-parameter name="granularity" type="string" required=false %}
-Granularity at which to aggregate metrics. Valid values are: "hour", "day", "week" and "month". Valid values vary based on specified period \(see note above\).
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="app" type="string" required=true %}
-ID of the app to fetch metrics for. App IDs can be found by calling the apps endpoint.
-{% endapi-method-parameter %}
-
-{% api-method-parameter name="period" type="string" required=false %}
-Time period for which to return metrics. Valid values are: "day", "week", "month", "year" and "all".  
-_Default value is "month"._
-{% endapi-method-parameter %}
-{% endapi-method-query-parameters %}
-{% endapi-method-request %}
-
-{% api-method-response %}
-{% api-method-response-example httpCode=200 %}
-{% api-method-response-example-description %}
-Returned when all parameters are valid.
-{% endapi-method-response-example-description %}
-
-```javascript
-[
-  {
-    "date": "2019-10-09T00:00:00.000Z",
-    "fillCount": 505,
-    "fillVolume": 804818.3748855987,
-    "tradeCount": 505,
-    "tradeVolume": 804818.3748855987
-  },
-  {
-    "date": "2019-10-10T00:00:00.000Z",
-    "fillCount": 613,
-    "fillVolume": 786533.7512397981,
-    "tradeCount": 613,
-    "tradeVolume": 786533.7512397981
-  },
-  // ...
-]
-```
-{% endapi-method-response-example %}
-
-{% api-method-response-example httpCode=400 %}
-{% api-method-response-example-description %}
-Returned when an invalid query parameter is provided.
-{% endapi-method-response-example-description %}
-
-```javascript
-{
-  "errors": [
-    {
-      "code": "INVALID_PARAMETER",
-      "message": "Invalid query parameter: relayer",
-      "reason": "No relayer exists with an ID of \"fubar\"",
       "status": 400
     }
   ]
