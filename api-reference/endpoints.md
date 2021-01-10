@@ -20,6 +20,14 @@ Slug of the app to fetch.
 {% endapi-method-path-parameters %}
 
 {% api-method-query-parameters %}
+{% api-method-parameter name="statsPeriodTo" type="string" required=false %}
+End of the time period for which to return stats. Should be used as an alternative to the statsPeriod parameter. Must be in the format YYYY-MM-DD.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="statsPeriodFrom" type="string" required=false %}
+Start of the time period for which to return stats. Should be used as an alternative to the statsPeriod parameter. Must be in the format YYYY-MM-DD.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="statsPeriod" type="string" required=false %}
 The time period for which to return stats. Valid values are: "day", "week", "month", "year" and "all".  
 _Default value is "day"._
@@ -574,6 +582,18 @@ Returns a paginated collection of active traders and their associated stats for 
 {% api-method-spec %}
 {% api-method-request %}
 {% api-method-query-parameters %}
+{% api-method-parameter name="statsPeriodTo" type="string" required=false %}
+End of the time period for which to return stats. Should be used as an alternative to the statsPeriod parameter. Must be in the format YYYY-MM-DD.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="statsPeriodFrom" type="string" required=false %}
+Start of the time period for which to return stats. Should be used as an alternative to the statsPeriod parameter. Must be in the format YYYY-MM-DD.
+{% endapi-method-parameter %}
+
+{% api-method-parameter name="apps" type="string" required=false %}
+A comma-separated list of app IDs to filter the traders by. App IDs can be found by calling the apps endpoint.
+{% endapi-method-parameter %}
+
 {% api-method-parameter name="type" type="string" required=false %}
 The type of traders to return. Must be one of: maker, taker.
 {% endapi-method-parameter %}
